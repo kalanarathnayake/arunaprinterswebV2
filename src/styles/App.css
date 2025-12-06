@@ -16,6 +16,30 @@
   text-align: center;
   width: 100%;
   box-sizing: border-box;
+  position: relative;
+  /* Background image */
+  background-image: url('https://images.ctfassets.net/hrltx12pl8hq/28ECAQiPJZ78hxatLTa7Ts/2f695d869736ae3b0de3e56ceaca3958/free-nature-images.jpg?fit=fill&w=1200&h=630');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* Overlay to ensure content readability */
+.main-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.75);
+  z-index: 0;
+}
+
+.main-content > * {
+  position: relative;
+  z-index: 1;
 }
 
 .welcome-section {

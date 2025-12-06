@@ -6,15 +6,16 @@ const path = require('path');
 const photoRoutes = require('./routes/photos');
 const authRoutes = require('./routes/auth');
 
-// Load .env file from server directory
-const envPath = path.join(__dirname, '.env');
-dotenv.config({ path: envPath });
+// Load .env file from server directory (only in development)
+if (process.env.NODE_ENV !== 'production') {
+  const envPath = path.join(__dirname, '.env');
+  dotenv.config({ path: envPath });
+}
 
 // Debug: Log the connection string (without password for security)
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/arunaprinters';
 if (!process.env.MONGODB_URI) {
   console.warn('⚠️  MONGODB_URI not found in environment variables');
-  console.warn(`   Looking for .env file at: ${envPath}`);
   console.warn('   Using fallback: mongodb://localhost:27017/arunaprinters');
 } else {
   const uriWithoutPassword = MONGODB_URI.replace(/:[^:@]+@/, ':****@');
@@ -24,8 +25,42 @@ if (!process.env.MONGODB_URI) {
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// CORS configuration - allow requests from Netlify and localhost
+const allowedOrigins = process.env.ALLOWED_ORIGINS 
+  ? process.env.ALLOWED_ORIGINS.split(',')
+  : ['http://localhost:3000'];
+
+// Add common Netlify patterns if not specified
+if (!process.env.ALLOWED_ORIGINS) {
+  allowedOrigins.push('https://*.netlify.app');
+}
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    // Check if origin matches allowed origins
+    const isAllowed = allowedOrigins.some(allowed => {
+      if (allowed.includes('*')) {
+        // Handle wildcard patterns like *.netlify.app
+        const pattern = allowed.replace('*', '.*');
+        return new RegExp(pattern).test(origin);
+      }
+      return origin === allowed;
+    });
+    
+    if (isAllowed) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+};
+
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
