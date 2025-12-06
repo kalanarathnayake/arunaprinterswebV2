@@ -12,12 +12,6 @@ function Header() {
     setIsMenuOpen(false);
   };
 
-  const handleAdminClick = (e) => {
-    e.preventDefault();
-    closeMenu();
-    window.location.href = '/admin';
-  };
-
   return (
     <header className="header">
       <div className="header-container">
@@ -39,7 +33,6 @@ function Header() {
           <a href="#services" onClick={closeMenu}>Services</a>
           <a href="#gallery" onClick={closeMenu}>Gallery</a>
           <a href="#about" onClick={closeMenu}>About</a>
-          <a href="/admin" onClick={handleAdminClick} className="admin-link">Admin</a>
         </nav>
       </div>
     </header>
