@@ -17,8 +17,8 @@
   width: 100%;
   box-sizing: border-box;
   position: relative;
-  /* Background image */
-  background-image: url('https://images.ctfassets.net/hrltx12pl8hq/28ECAQiPJZ78hxatLTa7Ts/2f695d869736ae3b0de3e56ceaca3958/free-nature-images.jpg?fit=fill&w=1200&h=630');
+  /* Background image - Colorful abstract background */
+  background-image: url('https://t3.ftcdn.net/jpg/12/21/27/04/360_F_1221270464_zAOFCGJtqNwizkO2xrqMlv3xTuvrEIZI.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -33,7 +33,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.3);
   z-index: 0;
 }
 
