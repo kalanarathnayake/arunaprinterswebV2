@@ -1,0 +1,17 @@
+[build]
+  # Build command - Netlify will run this to build your React app
+  command = "npm run build"
+  
+  # Publish directory - Where the built files are located
+  publish = "build"
+  
+  # Node version (optional, but recommended)
+  [build.environment]
+    NODE_VERSION = "18"
+
+# Redirect all routes to index.html for React Router (if you're using it)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
