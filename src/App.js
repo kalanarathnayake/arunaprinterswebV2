@@ -69,7 +69,7 @@ function App() {
             </a>
           </div>
           <div className="quick-actions">
-            <h3>Quick Actions</h3>
+            <h3>CALL US</h3>
             <div className="action-buttons-grid">
               <a href="tel:0718002631" className="action-btn call-btn">
                 <span className="btn-icon">📞</span>
